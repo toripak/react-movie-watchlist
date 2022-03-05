@@ -1,3 +1,4 @@
+/* Universal styles */
 body {
   margin: 0;
   font-family: 'Inter', sans-serif;
@@ -16,8 +17,10 @@ html, body, #root, .App {
 
 h1 {
   font-family: 'Karla', sans-serif;
+  font-size: 1.16rem;
 }
 
+/* Nav & dark/light mode toggler styling */
 nav {
   display: flex;
   align-items: center;
@@ -32,7 +35,7 @@ nav.dark {
 }
 
 .nav--title {
-  color: #989AF4;
+  color: #989AF3;
   padding-left: 2rem;
 }
 
@@ -43,8 +46,7 @@ nav.dark {
 }
 
 .toggler p {
-  font-size: 0.9rem;
-  font-weight: 600;
+  font-size: 1rem;
 }
 
 .toggler--slider {
@@ -77,34 +79,15 @@ nav.dark .toggler--slider {
   box-shadow: 0 1px 12px  rgba(220,224,230,0.8);
 }
 
-.toggler--light {
-  color: #2B283A;
-}
-
-nav.dark .toggler--light {
-  color: #918E9B;
-}
-
-.toggler--dark {
-  color: #D5D4D8;
-}
-
-nav.dark .toggler--dark {
-  color: #FFF;
-}
-
 nav.dark .toggler--slider {
   justify-content: flex-end;
 }
 
-/* Movie card styling */
-.card--img {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
+.toggler--light {
+  margin-right: .25rem;
 }
 
+/* Search bar styling */
 form {
   margin: 1.2rem;
 }
@@ -138,7 +121,7 @@ input {
   border: gray 1px solid;
   border-radius: 22px;
   height: 32px;
-  width: 220px;
+  width: 240px;
   padding-left: 10px;
   font-family: 'Inter', sans-serif;
   margin-right: .4rem;
@@ -148,7 +131,7 @@ input:active {
   border: #403d4d 1px solid;
 }
 
-
+/* Search results styling - container, movie card */
 .movie--container {
   margin: 0 auto;
   display: flex;
@@ -158,10 +141,34 @@ input:active {
 }
 
 .movie--img {
-  border-radius: 7px;
-  width: 185px;
+  border-radius: 6px;
+  width: 190px;
   max-height: 275px;
   cursor: pointer;
+}
+
+.movie--card:hover {
+  transform: scale(1.05);
+}
+
+.add-to-favorites {
+  font-size: .8rem;
+  color: #FFF;
+  padding: .1rem;
+  text-align: center;
+  position: absolute;
+  background: rgba(46, 47, 102, 0.8);
+  width: 100%;
+  opacity: 0;
+  bottom: 65px;
+  transition: 0.2s ease-in;
+  overflow: hidden;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.movie--card:hover .add-to-favorites {
+  opacity: 1;
 }
 
 .movie--card {
@@ -171,6 +178,8 @@ input:active {
   align-items: center;
   align-content: center;
   margin: .5rem;
+  position: relative;
+  transition: transform 0.2s;
 }
 
 .movie--desc {
@@ -180,11 +189,11 @@ input:active {
   width: 190px;
   text-align: center;
   height: 19px;
-  padding-bottom: 2.4rem;
+  margin-bottom: 2.2rem;
 }
 
+/* Footer styling */
 footer {
-  margin-top: auto;
   position: fixed;
   bottom: 0;
   width: 100%;
@@ -192,6 +201,6 @@ footer {
   align-items: center;
   justify-content: center;
   font-size: .65rem;
-  background-color: #918E9B;
-  padding: .3rem;
+  background-color: #A29FAC;
+  padding: .35rem;
 }

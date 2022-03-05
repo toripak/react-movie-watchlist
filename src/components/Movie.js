@@ -1,6 +1,7 @@
 import React from "react";
 
-export const Movie = ({ movie }) => {
+export const Movie = ({ movie, FavoriteComponent, handleFavClick }) => {
+
   const {
     title,
     poster_path: src,
@@ -15,7 +16,15 @@ export const Movie = ({ movie }) => {
         src={`https://image.tmdb.org/t/p/w500/${src}`}
         alt={`${title} movie poster`}
       />
-      <p className="movie--desc">{title}・{releaseDate.slice(0, 4)} ⭐{rating}</p>
+      <div 
+        className="add-to-favorites"
+        onClick={() => handleFavClick(movie)}
+      >
+        <FavoriteComponent />
+      </div>
+      <p className="movie--desc">
+        {title}・{releaseDate.slice(0, 4)} ⭐{rating}
+      </p>
     </div>
   )
 }

@@ -1,8 +1,8 @@
 import React from "react";
 
-export const Footer = ({darkMode}) => {
+export const Footer = () => {
   return (
-    <footer className={darkMode ? "dark" : ""}>
+    <footer>
       "This product uses the TMDB API but is not endorsed or certified by TMDB."
     </footer>
   )
