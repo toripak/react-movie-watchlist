@@ -1,9 +1,10 @@
 import React from "react";
+import './Navbar.css';
 
 export const Navbar = ({ darkMode, toggleDarkMode }) => {
   return (
     <nav className={darkMode ? "dark" : ""}>
-      <h1 className="nav--title">・ react movie search ・</h1>
+      <h1 className="nav--title">・ react movie app ・</h1>
 
 
       <div className="toggler">
@@ -17,8 +18,8 @@ export const Navbar = ({ darkMode, toggleDarkMode }) => {
         </div>
 
         <p className="toggler--dark">🌛</p>
-
       </div>
+      
     </nav>
   )
 }

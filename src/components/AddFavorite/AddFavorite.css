@@ -1,0 +1,19 @@
+.add-to-favorites {
+  font-size: .8rem;
+  color: #FFF;
+  padding: .1rem;
+  text-align: center;
+  position: absolute;
+  background: rgba(46, 47, 102, 0.85);
+  width: 100%;
+  opacity: 0;
+  bottom: 67px;
+  transition: 0.2s ease-in;
+  overflow: hidden;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.movie--card:hover .add-to-favorites {
+  opacity: 1;
+}

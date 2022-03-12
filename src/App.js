@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import './App.css';
-import { SearchBar } from './components/SearchBar';
-import { Navbar } from './components/Navbar';
-import { Footer } from './components/Footer';
-import { MoviesList } from './components/MoviesList';
+import { SearchBar } from './components/SearchBar/SearchBar';
+import { Navbar } from './components/Navbar/Navbar';
+import { Footer } from './components/Footer/Footer';
+import { MoviesList } from './components/MoviesList/MoviesList';
 import { searchTMDB } from './utils/TMDB';
-import { AddFavorite } from './components/AddFavorite';
-import { RemoveFavorite } from './components/RemoveFavorites';
+import { AddFavorite } from './components/AddFavorite/AddFavorite';
+import { RemoveFavorite } from './components/RemoveFavorites/RemoveFavorites';
 
 const App = () => {
   const [darkMode, setDarkMode] = useState('');
@@ -23,18 +23,21 @@ const App = () => {
     setDarkMode(prevMode => prevMode === "" ? "dark" : "");
   };
 
-  const searchMovies = query => {
+  const searchMovies = (query) => {
     searchTMDB(query).then(movies => setMovies(movies));
   }
 
   const addFavMovie = movie => {
-    const newFavorites = favorites.filter(({id}) => id !== movie.id);
+    const newFavorites = favorites.filter(({ id }) => id !== movie.id);
     setFavorites([...newFavorites, movie]);
+    const newMovies = movies.filter(({ id }) => id !== movie.id);
+    setMovies(newMovies);
   }
 
-  const removeFavoriteMovie = movie => {
-    const newFavorites = favorites.filter(fav => fav.id !== movie.id);
+  const removeFavMovie = movie => {
+    const newFavorites = favorites.filter(({ id }) => id !== movie.id);
     setFavorites(newFavorites);
+    setMovies(prev => [movie, ...prev]);
   }
 
   return (
@@ -52,9 +55,10 @@ const App = () => {
       {favorites.length > 0 && <h4>Favorite Movies</h4>}
 
       <MoviesList
+        favorites={favorites}
         movies={favorites}
         FavoriteComponent={RemoveFavorite}
-        handleFavClick={removeFavoriteMovie}
+        handleFavClick={removeFavMovie}
       />
       {favorites.length > 0 && <hr />}
 

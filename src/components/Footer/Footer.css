@@ -1,0 +1,12 @@
+/* Footer styling */
+footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: .65rem;
+  background-color: #A29FAC;
+  padding: .35rem;
+}

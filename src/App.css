@@ -12,19 +12,7 @@ hr {
   width: 80%;
 }
 
-/* Reusable Component - img container */
-.img--container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  overflow: hidden;
-  background: #000;
-}
 
-.img--container img {
-  width: 100%;
-  border-radius: 5px;
-}
 
 
 
