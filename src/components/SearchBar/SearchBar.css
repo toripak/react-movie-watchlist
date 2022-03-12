@@ -40,3 +40,9 @@ input {
 input:active {
   border: #403d4d 1px solid;
 }
+
+@media only screen and (max-width: 440px) {
+  input {
+    width: 130px;
+  }
+}
