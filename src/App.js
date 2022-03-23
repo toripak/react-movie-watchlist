@@ -1,18 +1,18 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 import { SearchBar } from './components/SearchBar/SearchBar';
 import { Navbar } from './components/Navbar/Navbar';
 import { Footer } from './components/Footer/Footer';
 import { MoviesList } from './components/MoviesList/MoviesList';
 import { searchTMDB } from './utils/TMDB';
-import { AddFavorite } from './components/AddFavorite/AddFavorite';
-import { RemoveFavorite } from './components/RemoveFavorites/RemoveFavorites';
+import { WatchListComponent } from './components/WatchListComponent/WatchListComponent';
+import { removeFromWatchlist } from './components/RemoveFavorites/removeFromWatchlist';
 
 const App = () => {
   const [darkMode, setDarkMode] = useState('');
   const [movies, setMovies] = useState([]);
   const [query, setQuery] = useState('');
-  const [favorites, setFavorites] = useState([]);
+  const [watchlist, setWatchlist] = useState([]);
 
   const styles = {
     backgroundColor: darkMode ? '#363c48' : '#FDFDFD',
@@ -27,18 +27,31 @@ const App = () => {
     searchTMDB(query).then(movies => setMovies(movies));
   }
 
-  const addFavMovie = movie => {
-    const newFavorites = favorites.filter(({ id }) => id !== movie.id);
-    setFavorites([...newFavorites, movie]);
+  const saveToLocalStorage = movies => {
+    localStorage.setItem('watchlist', JSON.stringify(movies));
+  };
+
+  const addToWatchlist = movie => {
+    const newWatchlist = watchlist.filter(({ id }) => id !== movie.id);
+    setWatchlist([...newWatchlist, movie]);
     const newMovies = movies.filter(({ id }) => id !== movie.id);
+
     setMovies(newMovies);
+    saveToLocalStorage(watchlist);
   }
 
   const removeFavMovie = movie => {
-    const newFavorites = favorites.filter(({ id }) => id !== movie.id);
-    setFavorites(newFavorites);
+    const newWatchlist = watchlist.filter(({ id }) => id !== movie.id);
+    setWatchlist(newWatchlist);
+    
     setMovies(prev => [movie, ...prev]);
+    saveToLocalStorage(newWatchlist);
   }
+
+  useEffect(() => {
+    const savedWatchlist = JSON.parse(localStorage.getItem('watchlist'));
+    setWatchlist(savedWatchlist);
+  }, []);
 
   return (
     <div className="App" style={styles}>
@@ -52,20 +65,20 @@ const App = () => {
         searchMovies={searchMovies}
       />
 
-      {favorites.length > 0 && <h4>Favorite Movies</h4>}
+      {watchlist?.length > 0 && <h4>My watchlist</h4>}
 
       <MoviesList
-        favorites={favorites}
-        movies={favorites}
-        FavoriteComponent={RemoveFavorite}
+        watchlist={watchlist}
+        movies={watchlist}
+        WatchListComponent={removeFromWatchlist}
         handleFavClick={removeFavMovie}
       />
-      {favorites.length > 0 && <hr />}
+      {watchlist?.length > 0 && <hr />}
 
       <MoviesList
         movies={movies}
-        FavoriteComponent={AddFavorite}
-        handleFavClick={addFavMovie}
+        WatchListComponent={WatchListComponent}
+        handleFavClick={addToWatchlist}
       />
       <Footer
       />
