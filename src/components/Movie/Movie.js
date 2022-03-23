@@ -1,7 +1,7 @@
 import React from "react";
 import './Movie.css';
 
-export const Movie = ({ movie, FavoriteComponent, handleFavClick }) => {
+export const Movie = ({ movie, WatchListComponent, handleFavClick }) => {
 
   const {
     title,
@@ -28,7 +28,7 @@ export const Movie = ({ movie, FavoriteComponent, handleFavClick }) => {
         className="add-to-favorites"
         onClick={() => handleFavClick(movie)}
       >
-        <FavoriteComponent />
+        <WatchListComponent />
       </div>
 
       <p className="movie--desc">

@@ -1,6 +1,6 @@
 import React from "react";
 
-export const removeFromWatchlist = () => {
+export const RemoveFromWatchlist = () => {
   return (
     <>
       <p>💔 Remove from Watchlist</p>

@@ -5,7 +5,9 @@ export const SearchBar = ({ searchMovies, query, setQuery }) => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    searchMovies(query);
+    if (query) {
+      searchMovies(query);
+    }
   }
 
   return (

@@ -6,13 +6,13 @@ import { Footer } from './components/Footer/Footer';
 import { MoviesList } from './components/MoviesList/MoviesList';
 import { searchTMDB } from './utils/TMDB';
 import { WatchListComponent } from './components/WatchListComponent/WatchListComponent';
-import { removeFromWatchlist } from './components/RemoveFavorites/removeFromWatchlist';
+import { RemoveFromWatchlist } from './components/RemoveFromWatchlist/RemoveFromWatchlist';
 
 const App = () => {
   const [darkMode, setDarkMode] = useState('');
   const [movies, setMovies] = useState([]);
   const [query, setQuery] = useState('');
-  const [watchlist, setWatchlist] = useState([]);
+  const [watchlist, setWatchlist] = useState(() => JSON.parse(localStorage.getItem('watchlist')) || []);
 
   const styles = {
     backgroundColor: darkMode ? '#363c48' : '#FDFDFD',
@@ -27,31 +27,24 @@ const App = () => {
     searchTMDB(query).then(movies => setMovies(movies));
   }
 
-  const saveToLocalStorage = movies => {
-    localStorage.setItem('watchlist', JSON.stringify(movies));
-  };
-
   const addToWatchlist = movie => {
     const newWatchlist = watchlist.filter(({ id }) => id !== movie.id);
     setWatchlist([...newWatchlist, movie]);
     const newMovies = movies.filter(({ id }) => id !== movie.id);
 
     setMovies(newMovies);
-    saveToLocalStorage(watchlist);
   }
 
   const removeFavMovie = movie => {
     const newWatchlist = watchlist.filter(({ id }) => id !== movie.id);
     setWatchlist(newWatchlist);
-    
+
     setMovies(prev => [movie, ...prev]);
-    saveToLocalStorage(newWatchlist);
   }
 
   useEffect(() => {
-    const savedWatchlist = JSON.parse(localStorage.getItem('watchlist'));
-    setWatchlist(savedWatchlist);
-  }, []);
+    localStorage.setItem('watchlist', JSON.stringify(watchlist))
+  }, [watchlist]);
 
   return (
     <div className="App" style={styles}>
@@ -70,7 +63,7 @@ const App = () => {
       <MoviesList
         watchlist={watchlist}
         movies={watchlist}
-        WatchListComponent={removeFromWatchlist}
+        WatchListComponent={RemoveFromWatchlist}
         handleFavClick={removeFavMovie}
       />
       {watchlist?.length > 0 && <hr />}
