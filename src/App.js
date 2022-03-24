@@ -12,7 +12,9 @@ const App = () => {
   const [darkMode, setDarkMode] = useState('');
   const [movies, setMovies] = useState([]);
   const [query, setQuery] = useState('');
-  const [watchlist, setWatchlist] = useState(() => JSON.parse(localStorage.getItem('watchlist')) || []);
+  const [watchlist, setWatchlist] = useState(
+    JSON.parse(localStorage.getItem('watchlist')) || []
+    );
 
   const styles = {
     backgroundColor: darkMode ? '#363c48' : '#FDFDFD',
@@ -29,7 +31,7 @@ const App = () => {
 
   const addToWatchlist = movie => {
     const newWatchlist = watchlist.filter(({ id }) => id !== movie.id);
-    setWatchlist([...newWatchlist, movie]);
+    setWatchlist([movie, ...newWatchlist]);
     const newMovies = movies.filter(({ id }) => id !== movie.id);
 
     setMovies(newMovies);
@@ -39,7 +41,9 @@ const App = () => {
     const newWatchlist = watchlist.filter(({ id }) => id !== movie.id);
     setWatchlist(newWatchlist);
 
-    setMovies(prev => [movie, ...prev]);
+    const newMovies = movies.filter(({ id }) => id !== movie.id);
+
+    setMovies([movie, ...newMovies]);
   }
 
   useEffect(() => {
