@@ -1,0 +1,10 @@
+.spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.spinner--message {
+  font-size: .9rem;
+  padding: .5rem;
+}

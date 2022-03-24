@@ -32,7 +32,7 @@ export const Movie = ({ movie, WatchListComponent, handleFavClick }) => {
       </div>
 
       <p className="movie--desc">
-        {title}・{releaseDate.slice(0, 4)} ⭐{rating}
+        {title}・{releaseDate?.slice(0, 4)} ⭐{rating}
       </p>
     </div>
   )
