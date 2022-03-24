@@ -70,7 +70,7 @@ const App = () => {
         searchMovies={searchMovies}
       />
 
-      {watchlist?.length > 0 && <h4>My watchlist</h4>}
+      {watchlist?.length > 0 && <h4>My watchlist ({watchlist.length})</h4>}
 
       <MoviesList
         watchlist={watchlist}
