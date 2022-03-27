@@ -10,8 +10,8 @@
   margin: 0 auto;
   display: flex;
   flex-wrap: nowrap;
-  width: 90%;
-  justify-content: center;
+  width: 85%;
+  /* justify-content: center; */
   overflow-x: auto;
   overflow-y: hidden;
 }

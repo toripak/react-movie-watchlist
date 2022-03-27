@@ -10,13 +10,19 @@ import { RemoveFromWatchlist } from './components/RemoveFromWatchlist/RemoveFrom
 import { Spinner } from './components/Spinner/Spinner';
 
 const App = () => {
-  const [darkMode, setDarkMode] = useState('');
-  const [movies, setMovies] = useState([]);
+  const [darkMode, setDarkMode] = useState(
+    JSON.parse(localStorage.getItem('darkMode')) || ''
+  );
+  const [movies, setMovies] = useState(null);
   const [query, setQuery] = useState('');
   const [loading, setLoading] = useState(false);
   const [watchlist, setWatchlist] = useState(
     JSON.parse(localStorage.getItem('watchlist')) || []
   );
+
+  useEffect(() => {
+    localStorage.setItem('darkMode', JSON.stringify(darkMode));
+  })
 
   const styles = {
     backgroundColor: darkMode ? '#363c48' : '#FDFDFD',
@@ -30,14 +36,14 @@ const App = () => {
   const searchMovies = (query) => {
     setLoading(true);
     searchTMDB(query).then(movies => {
-      setMovies(movies);
-      setLoading(false);
+        setMovies(movies);
+        setLoading(false);
     })
   }
 
   const addToWatchlist = movie => {
     const newWatchlist = watchlist.filter(({ id }) => id !== movie.id);
-    setWatchlist([movie, ...newWatchlist]);
+    setWatchlist([...newWatchlist, movie]);
     const newMovies = movies.filter(({ id }) => id !== movie.id);
 
     setMovies(newMovies);
@@ -78,9 +84,11 @@ const App = () => {
         WatchListComponent={RemoveFromWatchlist}
         handleFavClick={removeFavMovie}
       />
-      {watchlist?.length > 0 && <hr />}
+      {(watchlist?.length > 0 && movies?.length > 0) && <hr />}
 
       {loading && <Spinner message="Looking for movies..." />}
+
+      {(movies?.length === 0 && !loading) && <p>Sorry! We couldn't find any matches😔</p>}
 
       {movies && <MoviesList
         movies={movies}
