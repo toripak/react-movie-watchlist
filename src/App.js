@@ -44,7 +44,7 @@ const App = () => {
   const addToWatchlist = movie => {
     const newWatchlist = watchlist.filter(({ id }) => id !== movie.id);
     setWatchlist([...newWatchlist, movie]);
-    const newMovies = movies.filter(({ id }) => id !== movie.id);
+    const newMovies = movies?.filter(({ id }) => id !== movie.id);
 
     setMovies(newMovies);
   }
@@ -53,7 +53,7 @@ const App = () => {
     const newWatchlist = watchlist.filter(({ id }) => id !== movie.id);
     setWatchlist(newWatchlist);
 
-    const newMovies = movies.filter(({ id }) => id !== movie.id);
+    const newMovies = movies?.filter(({ id }) => id !== movie.id);
 
     setMovies([movie, ...newMovies]);
   }
